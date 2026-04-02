@@ -153,6 +153,6 @@ def build_pr_body(state: dict) -> str:
 {history_section}
 
 ---
-*Opened automatically by [Selfix](https://github.com/your-org/selfix)*
+*Opened automatically by [Selfix](https://github.com/vimal-sivasubramanian/selfix)*
 """
     return body.strip()
