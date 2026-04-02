@@ -37,8 +37,8 @@ __all__ = ["run", "run_sync", "SelfixConfig", "SelfixResult"]
 
 async def run(config: SelfixConfig) -> SelfixResult:
     """Run the Selfix pipeline asynchronously."""
-    graph = build_graph()
-    thread_id = str(uuid.uuid4())
+    graph = build_graph(checkpoint_dir=config.checkpoint_dir)
+    thread_id = config.signal.id
 
     await asyncio.to_thread(
         graph.invoke,
@@ -55,8 +55,8 @@ async def run(config: SelfixConfig) -> SelfixResult:
 
 def run_sync(config: SelfixConfig) -> SelfixResult:
     """Synchronous wrapper around run() for callers without an event loop."""
-    graph = build_graph()
-    thread_id = str(uuid.uuid4())
+    graph = build_graph(checkpoint_dir=config.checkpoint_dir)
+    thread_id = config.signal.id
 
     graph.invoke(
         {"config": config},

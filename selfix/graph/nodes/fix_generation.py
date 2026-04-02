@@ -15,11 +15,10 @@ def fix_generation_node(state: PipelineState) -> dict:
     signal = state["signal"]
     repo_path = state["repo_path"]
     exploration_summary = state.get("exploration_summary") or ""
-
-    # Phase 2+: previous_feedback from last ValidationResult
-    previous_feedback: str | None = None
-    if state.get("validation_result"):
-        previous_feedback = state["validation_result"].feedback
+    attempt_number = state.get("attempt_number", 1)
+    max_attempts = config.max_attempts
+    attempt_history = list(state.get("attempt_history") or [])
+    current_feedback = state.get("current_feedback")
 
     agent_cfg = config.agent_config
     worker = AgentWorker(
@@ -32,11 +31,13 @@ def fix_generation_node(state: PipelineState) -> dict:
         signal=signal,
         exploration_summary=exploration_summary,
         repo_path=repo_path,
-        previous_feedback=previous_feedback,
+        attempt_number=attempt_number,
+        max_attempts=max_attempts,
+        attempt_history=attempt_history,
+        current_feedback=current_feedback,
     )
 
-    attempt = state.get("attempt_number", 1)
-    logger.info("Starting fix generation (attempt %d)...", attempt)
+    logger.info("Starting fix generation (attempt %d/%d)...", attempt_number, max_attempts)
     result = worker.run(prompt)
     logger.info("Fix generation complete (%d tool calls)", result.tool_calls)
 

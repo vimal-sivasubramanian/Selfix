@@ -21,4 +21,7 @@ def repo_setup_node(state: PipelineState) -> dict:
     logger.info("Creating fix branch: %s", branch_name)
     git_ops.create_branch(repo_path, branch_name)
 
-    return {"branch_name": branch_name}
+    base_commit = git_ops.capture_base_commit(repo_path)
+    logger.info("Base commit: %s", base_commit[:8])
+
+    return {"branch_name": branch_name, "base_commit": base_commit}

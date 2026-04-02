@@ -37,6 +37,7 @@ def report_node(state: PipelineState) -> dict:
         validation_result=vr,
         agent_reasoning=state.get("agent_reasoning") or "",
         branch_name=branch_name,
+        attempt_history=list(state.get("attempt_history") or []),
         error=state.get("error"),
     )
     _last_result = result

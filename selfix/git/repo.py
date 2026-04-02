@@ -9,6 +9,28 @@ import git
 logger = logging.getLogger(__name__)
 
 
+def capture_base_commit(path: str) -> str:
+    """Return the current HEAD SHA (recorded before any edits on the fix branch)."""
+    result = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"],
+        cwd=path,
+    )
+    return result.decode().strip()
+
+
+def revert_to_base(path: str, base_commit: str) -> None:
+    """
+    Hard-reset the working tree and index back to base_commit.
+    Preserves the branch — only file state is reset.
+    """
+    subprocess.run(
+        ["git", "reset", "--hard", base_commit],
+        cwd=path,
+        check=True,
+    )
+    logger.info("Reverted repo to base commit %s", base_commit[:8])
+
+
 def verify_repo(path: str) -> git.Repo:
     """Raise if path is not a valid git repository."""
     p = Path(path)

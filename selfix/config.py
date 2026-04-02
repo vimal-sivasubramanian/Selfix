@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Awaitable, Callable, Optional
 
 if TYPE_CHECKING:
     from selfix.signals.base import Signal
@@ -26,3 +26,13 @@ class SelfixConfig:
     max_attempts: int = 3
     agent_config: AgentConfig = field(default_factory=AgentConfig)
     checkpoint_dir: str = ".selfix/checkpoints"
+    # Phase 2
+    build_command: Optional[str] = None                                          # e.g. "mypy src/ --strict", "tsc --noEmit"
+    escalation_handler: Optional[Callable[["EscalationEvent"], Awaitable[None]]] = None
+
+
+@dataclass
+class EscalationEvent:
+    signal: "Signal"
+    attempts: list
+    branch_name: Optional[str]
