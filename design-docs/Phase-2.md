@@ -573,14 +573,15 @@ for i, attempt in enumerate(result.attempt_history):
 
 ---
 
-## 14. What Phase 3 Adds
+## 14. What Phase 3 Added
 
-Phase 2 ends with a fully autonomous retry loop on a local repo. Phase 3 introduces:
+Phase 2 ends with a fully autonomous retry loop on a local repo. Phase 3 (complete) delivered:
 
-- **Signal router** — Error, Metric, and Cron signals trigger the pipeline automatically
-- **Remote repo support** — clone, push branch, open PR via GitHub/GitLab API
-- **PR creation node** — real implementation with diff, reasoning, and validation report attached
-- **Webhook listener** — HTTP endpoint that receives signals from external systems
+- **Signal router** — `ErrorSignal`, `MetricSignal`, `ScheduledSignal` with deduplication via `SignalRouter`
+- **Remote repo support** — `RepoConfig` + `RepoManager` for clone, fetch-latest, and branch push
+- **PR creation node** — real implementation: branch push + `GitHubPRProvider` / `GitLabPRProvider`
+- **Webhook listener** — `SelfixWebhookServer` with Sentry, Datadog, and GitHub Actions adapters
+- **Signal enrichment** — `agent_focus_hint` injected into exploration prompt per signal type
 
 ---
 

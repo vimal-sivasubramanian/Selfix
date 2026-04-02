@@ -296,9 +296,9 @@ All edits happen on a `selfix/fix-<signal-id>` branch. The main branch is never 
 
 | Phase | Scope | Outcome |
 |---|---|---|
-| **Phase 1** | Core pipeline — manual signal, shell validator, single repo, happy path | Working end-to-end pipeline for one language |
-| **Phase 2** | Retry loop, feedback injection, validator protocol, built-in validators | Reliable autonomous improvement with configurable validation |
-| **Phase 3** | Signal router (error, metric, cron), PR creation, escalation | Production-ready autonomous pipeline |
+| **Phase 1** ✅ | Core pipeline — manual signal, shell validator, single repo, happy path | Working end-to-end pipeline for one language |
+| **Phase 2** ✅ | Retry loop, feedback injection, validator protocol, built-in validators | Reliable autonomous improvement with configurable validation |
+| **Phase 3** ✅ | Signal router (error, metric, cron), remote repo, PR creation, webhook listener | Production-ready autonomous pipeline |
 | **Phase 4** | Observability, LangSmith tracing, structured event log, CLI | Debuggable, packageable, publishable |
 | **Phase 5** | Multi-repo, parallel signal queuing, custom agent config per signal | Scale and extensibility |
 

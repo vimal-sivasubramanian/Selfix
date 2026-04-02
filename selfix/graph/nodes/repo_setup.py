@@ -10,8 +10,19 @@ logger = logging.getLogger(__name__)
 
 
 def repo_setup_node(state: PipelineState) -> dict:
+    import asyncio
+
     repo_path = state["repo_path"]
     signal = state["signal"]
+    config = state["config"]
+
+    # Phase 3: clone/fetch remote repo if configured
+    if config.repo_config is not None:
+        from selfix.git.remote import RepoManager
+        repo_manager = RepoManager()
+        repo_path = asyncio.get_event_loop().run_until_complete(
+            repo_manager.ensure_local(config.repo_config)
+        )
 
     git_ops.verify_repo(repo_path)
 

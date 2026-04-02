@@ -38,6 +38,8 @@ def report_node(state: PipelineState) -> dict:
         agent_reasoning=state.get("agent_reasoning") or "",
         branch_name=branch_name,
         attempt_history=list(state.get("attempt_history") or []),
+        pr_url=state.get("pr_url"),
+        pr_number=state.get("pr_number"),
         error=state.get("error"),
     )
     _last_result = result

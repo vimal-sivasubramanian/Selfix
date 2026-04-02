@@ -21,7 +21,7 @@ def exploration_node(state: PipelineState) -> dict:
         allowed_tools=["Read", "Glob", "Grep"],  # read-only during exploration
     )
 
-    prompt = exploration_prompt(signal, repo_path)
+    prompt = exploration_prompt(signal, repo_path, agent_focus_hint=state.get("agent_focus_hint"))
     logger.info("Starting exploration agent...")
     result = worker.run(prompt)
     logger.info("Exploration complete (%d tool calls)", result.tool_calls)

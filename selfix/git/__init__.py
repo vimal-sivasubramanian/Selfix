@@ -1,3 +1,7 @@
+from selfix.git.pr import PRConfig, PRProvider, PRRequest, PRResult
+from selfix.git.providers.github import GitHubPRProvider
+from selfix.git.providers.gitlab import GitLabPRProvider
+from selfix.git.remote import RepoConfig, RepoManager
 from selfix.git.repo import (
     capture_base_commit,
     commit_changes,
@@ -10,6 +14,7 @@ from selfix.git.repo import (
 )
 
 __all__ = [
+    # Local repo ops
     "verify_repo",
     "create_branch",
     "get_diff",
@@ -18,4 +23,15 @@ __all__ = [
     "current_branch",
     "capture_base_commit",
     "revert_to_base",
+    # Remote repo
+    "RepoConfig",
+    "RepoManager",
+    # PR types
+    "PRConfig",
+    "PRProvider",
+    "PRRequest",
+    "PRResult",
+    # PR providers
+    "GitHubPRProvider",
+    "GitLabPRProvider",
 ]

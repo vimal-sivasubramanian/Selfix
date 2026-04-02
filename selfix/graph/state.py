@@ -29,6 +29,11 @@ class PipelineState(TypedDict, total=False):
     attempt_history: List[Any]          # list[AttemptRecord]
     current_feedback: Optional[str]     # feedback from last ValidationResult
 
+    # Phase 3: signal enrichment + PR output
+    agent_focus_hint: Optional[str]     # signal-type-specific focus hint for the agent
+    pr_url: Optional[str]               # PR URL after successful pr_creation
+    pr_number: Optional[int]            # PR number after successful pr_creation
+
     # Pipeline control
     status: str   # "running" | "success" | "failed" | "escalated"
     error: Optional[str]

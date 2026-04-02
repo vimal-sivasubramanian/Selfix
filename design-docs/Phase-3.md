@@ -680,6 +680,6 @@ Phase 3 ends with a production-capable autonomous pipeline. Phase 4 introduces:
 
 ---
 
-*Document version: 0.1 — Phase 3 design*  
-*Status: Draft*  
+*Document version: 0.2 — Phase 3 design*  
+*Status: Implemented*  
 *Depends on: Phase-2.md*

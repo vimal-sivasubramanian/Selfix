@@ -8,12 +8,13 @@ if TYPE_CHECKING:
     from selfix.attempt import AttemptRecord
 
 
-def exploration_prompt(signal: Signal, repo_path: str) -> str:
+def exploration_prompt(signal: Signal, repo_path: str, agent_focus_hint: str | None = None) -> str:
     scope = signal.scope_hint or "the entire repository"
+    focus_block = f"\nFocus hint: {agent_focus_hint}" if agent_focus_hint else ""
     return f"""You are exploring a code repository to understand a reported problem or improvement opportunity.
 
 Signal: {signal.description}
-Scope hint: {scope}
+Scope hint: {scope}{focus_block}
 Repo path: {repo_path}
 
 Tasks:
